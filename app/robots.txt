@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bisma-enterprises.vercel.app/sitemap.xml
