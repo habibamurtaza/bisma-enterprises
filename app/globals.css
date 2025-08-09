@@ -3,18 +3,34 @@
 @tailwind utilities;
 
 html { scroll-behavior: smooth; }
+
+/* Accent variables (default = sky, gold when .gold on <html>) */
+:root{
+  --accent-500:#0ea5e9;   /* sky-500 */
+  --accent-400:#38bdf8;   /* sky-400 */
+  --accent-20: rgba(14,165,233,.20);
+}
+:root.gold{
+  --accent-500:#caa646;   /* luxe gold */
+  --accent-400:#e3c567;
+  --accent-20: rgba(202,166,70,.20);
+}
+
+/* Dark / Light base */
 body { @apply bg-gray-950 text-white; }
 :root.light body { @apply bg-white text-gray-900; }
 
+/* Layout helpers */
 .container { @apply max-w-6xl mx-auto px-4; }
 .section { @apply container py-16; }
 .grid-sym { @apply grid md:grid-cols-2 lg:grid-cols-3 gap-6; }
 
+/* Components with accent variables */
 .card { @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur transition-transform duration-300; }
 .card:hover { @apply -translate-y-1 shadow-[0_10px_40px_rgba(2,6,23,.55)]; }
 
 .btn { @apply inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-medium transition-transform duration-200; }
-.btn-primary { @apply bg-sky-500 text-white hover:opacity-90; }
+.btn-primary { @apply text-white hover:opacity-90; background: var(--accent-500); }
 .btn-secondary { @apply bg-white/10 hover:bg-white/20; }
 .btn:hover { transform: translateY(-1px); }
 
@@ -22,22 +38,28 @@ body { @apply bg-gray-950 text-white; }
 .textarea { @apply w-full rounded-2xl border border-white/10 bg-transparent px-4 py-2 outline-none; }
 .badge { @apply bg-white/10 rounded-full px-3 py-1 text-xs; }
 
+.accent-chip { background: var(--accent-20); color: var(--accent-400); }
+.badge-accent { background: var(--accent-500); }
+.text-accent { color: var(--accent-400); }
+.bg-accent { background: var(--accent-500); }
+
+/* Nav underline uses accent */
 .nav-link { @apply relative; }
-.nav-link::after { content: ''; @apply absolute left-0 -bottom-1 h-[2px] w-0 bg-sky-500 transition-all duration-300; }
+.nav-link::after { content: ''; @apply absolute left-0 -bottom-1 h-[2px] w-0 transition-all duration-300; background: var(--accent-500); }
 .nav-link:hover::after { width: 100%; }
 
+/* Floating WhatsApp */
 .float-wa { @apply fixed bottom-6 right-6 z-50 rounded-full shadow-[0_10px_40px_rgba(2,6,23,.55)]; }
 
+/* n8n-like animated hero gradient, accent-aware */
 @keyframes gradientMove { 0%,100% { background-position:0% 50% } 50% { background-position:100% 50% } }
 @keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-4px) } }
+
 .hero-gradient {
-  background: linear-gradient(120deg, rgba(14,165,233,0.15), rgba(2,6,23,0) 40%, rgba(14,165,233,0.12));
+  background: linear-gradient(120deg, color-mix(in srgb, var(--accent-500) 20%, transparent), rgba(2,6,23,0) 40%, color-mix(in srgb, var(--accent-500) 16%, transparent));
   background-size: 200% 200%;
   animation: gradientMove 18s ease infinite;
 }
-/* Light mode enhancements */
-:root.light .hero-gradient {
-  background: linear-gradient(120deg, rgba(14,165,233,0.10), rgba(255,255,255,0) 40%, rgba(14,165,233,0.08));
-}
+/* Light mode refinements */
 :root.light .card { @apply bg-white shadow-[0_8px_30px_rgba(2,6,23,.08)] border-gray-200; }
 :root.light .btn-secondary { @apply bg-gray-100 hover:bg-gray-200; }

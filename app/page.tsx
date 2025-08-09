@@ -24,46 +24,30 @@ const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transi
 const stagger = { show: { transition: { staggerChildren: 0.08 } } };
 const hoverLift = { whileHover: { y: -4 }, whileTap: { scale: 0.98 } };
 
-// Curated Karachi-style images (initial luxury vibe, reliable Unsplash CDN)
-const HERO_IMG = 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1600&auto=format&fit=crop&q=80'; // modern facade
+// Curated (initial-look) images via Unsplash CDN (reliable)
+const HERO_IMG = 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1600&auto=format&fit=crop&q=80';
 const PROJECTS = [
-  {
-    id: 'pearl-tower',
-    title: 'Pearl Tower Apartment — Warm Minimal',
-    type: 'Interior', city: 'Karachi',
-    cover: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=80',
-    tags: ['Apartment','Custom Woodwork','Lighting']
-  },
-  {
-    id: 'dha-villa',
-    title: 'DHA Villa — Contemporary Grey',
-    type: 'Construction', city: 'Karachi',
-    cover: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1600&auto=format&fit=crop&q=80',
-    tags: ['Villa','Stone & Marble','Turnkey']
-  },
-  {
-    id: 'clifton-office',
-    title: 'Clifton Office — Modern Workspace',
-    type: 'Interior', city: 'Karachi',
-    cover: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&auto=format&fit=crop&q=80',
-    tags: ['Office','Acoustics','Furniture']
-  },
-  {
-    id: 'retail-fitout',
-    title: 'Retail Fit-Out — Flagship Store',
-    type: 'Construction', city: 'Karachi',
-    cover: 'https://images.unsplash.com/photo-1604948501466-4e9b88a7c9a1?w=1600&auto=format&fit=crop&q=80',
-    tags: ['Retail','Branding','Lighting']
-  }
+  { id:'pearl-tower', title:'Pearl Tower Apartment — Warm Minimal', type:'Interior', city:'Karachi',
+    cover:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=80',
+    tags:['Apartment','Custom Woodwork','Lighting'] },
+  { id:'dha-villa', title:'DHA Villa — Contemporary Grey', type:'Construction', city:'Karachi',
+    cover:'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1600&auto=format&fit=crop&q=80',
+    tags:['Villa','Stone & Marble','Turnkey'] },
+  { id:'clifton-office', title:'Clifton Office — Modern Workspace', type:'Interior', city:'Karachi',
+    cover:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&auto=format&fit=crop&q=80',
+    tags:['Office','Acoustics','Furniture'] },
+  { id:'retail-fitout', title:'Retail Fit-Out — Flagship Store', type:'Construction', city:'Karachi',
+    cover:'https://images.unsplash.com/photo-1604948501466-4e9b88a7c9a1?w=1600&auto=format&fit=crop&q=80',
+    tags:['Retail','Branding','Lighting'] },
 ];
 
-// Karachi-real testimonials you provided
+// Testimonials (Karachi tone)
 const TESTIMONIALS = [
   { quote: 'They delivered exactly on the renders — on time and within budget. The team is disciplined and creative.', author: 'A. Khan', role: 'Homeowner, DHA' },
   { quote: 'Our office fit-out finished two weeks early. Superb workmanship and project management.', author: 'S. Ahmed', role: 'COO, Tech Startup' }
 ];
 
-// WhatsApp brand SVG (inline, no extra file)
+// WhatsApp brand SVG (inline)
 const WhatsAppIcon = () => (
   <svg width='20' height='20' viewBox='0 0 32 32' fill='currentColor' aria-hidden='true'>
     <path d='M19.11 17.52a4.96 4.96 0 0 1-2.14-.54c-.33-.16-.72-.16-.94.16l-.68.9c-.2.26-.57.35-.87.2-1.64-.82-2.99-2.15-3.82-3.82-.16-.28-.1-.65.16-.85l.9-.68c.3-.22.38-.6.22-.93-.23-.69-.35-1.43-.35-2.17 0-.5-.4-.9-.9-.9H9.2c-.5 0-.9.4-.9.9 0 5.04 4.08 9.12 9.12 9.12.5 0 .9-.4.9-.9v-1.04c0-.5-.4-.9-.9-.9Z'/>
@@ -71,9 +55,9 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-// Floating WhatsApp button (n8n style micro-bounce)
+// Floating WhatsApp button with accent bg
 const WhatsAppButton = () => (
-  <a className='float-wa bg-sky-500 w-14 h-14 grid place-items-center' style={{animation:'floaty 4s ease-in-out infinite'}}
+  <a className='float-wa bg-accent w-14 h-14 grid place-items-center' style={{animation:'floaty 4s ease-in-out infinite'}}
      href={'https://wa.me/92' + COMPANY.phone.replace(/[^0-9]/g,'').slice(-10)}
      target='_blank' aria-label='WhatsApp Chat'>
     <WhatsAppIcon />
@@ -82,13 +66,17 @@ const WhatsAppButton = () => (
 
 export default function Page() {
   const [dark, setDark] = useState(true);
+  const [accentGold, setAccentGold] = useState(false);
   const [filter, setFilter] = useState('All');
   const filtered = useMemo(() => PROJECTS.filter(p => filter === 'All' ? true : p.type === filter), [filter]);
 
-  // Sync body class for better light styling
+  // Sync html class for light/dark & accent
   useEffect(() => {
     document.documentElement.classList.toggle('light', !dark);
   }, [dark]);
+  useEffect(() => {
+    document.documentElement.classList.toggle('gold', accentGold);
+  }, [accentGold]);
 
   return (
     <div className={dark ? 'min-h-screen bg-gray-950 text-white' : 'min-h-screen bg-white text-gray-900'}>
@@ -98,7 +86,7 @@ export default function Page() {
       <header className='sticky top-0 z-40 backdrop-blur border-b border-white/10 bg-black/30'>
         <div className='container py-4 flex items-center justify-between'>
           <div className='flex items-center gap-3'>
-            <div className='w-9 h-9 rounded-xl bg-sky-500 grid place-items-center font-bold'>BE</div>
+            <div className='w-9 h-9 rounded-xl badge-accent grid place-items-center font-bold'>BE</div>
             <div>
               <div className='font-semibold tracking-wide'>{COMPANY.name}</div>
               <div className='text-xs opacity-70 -mt-0.5'>{COMPANY.tagline}</div>
@@ -109,9 +97,14 @@ export default function Page() {
               <a key={id} href={'#'+id} className='nav-link hover:opacity-100 capitalize'>{id}</a>
             ))}
           </nav>
-          <div className='flex items-center gap-3'>
+          <div className='flex items-center gap-2'>
+            {/* Accent toggle */}
+            <Button variant='secondary' onClick={()=>setAccentGold(a=>!a)}>
+              {accentGold ? 'Accent: Gold' : 'Accent: Default'}
+            </Button>
+            {/* Dark toggle */}
             <Button onClick={() => setDark(d => !d)} variant='secondary'>{dark ? <Sun className='w-4 h-4'/> : <Moon className='w-4 h-4'/>}</Button>
-            <a href='#contact'><Button>Get Quote</Button></a>
+            <a href='#contact'><Button className='btn-primary'>Get Quote</Button></a>
           </div>
         </div>
       </header>
@@ -121,19 +114,15 @@ export default function Page() {
         <div className='container py-20 grid md:grid-cols-2 gap-10 items-center'>
           <motion.div variants={fadeUp} initial='hidden' whileInView='show' viewport={{ once: true }}>
             <h1 className='text-4xl md:text-6xl font-semibold leading-tight'>
-              Spaces that <span className='text-sky-400'>work</span> as beautifully as they look.
+              Spaces that <span className='text-accent'>work</span> as beautifully as they look.
             </h1>
             <p className='mt-5 text-lg opacity-85 max-w-xl'>{COMPANY.shortAbout}</p>
             <div className='mt-8 flex flex-wrap gap-3'>
-              <a href='#projects'><Button size='lg'>View Projects <ArrowUpRight className='w-4 h-4 ml-2'/></Button></a>
+              <a href='#projects'><Button className='btn-primary' size='lg'>View Projects <ArrowUpRight className='w-4 h-4 ml-2'/></Button></a>
               <a href='#contact'><Button size='lg' variant='secondary'>Free Consultation</Button></a>
-              <a href={'https://wa.me/92' + COMPANY.phone.replace(/[^0-9]/g,'').slice(-10)} target='_blank'><Button size='lg' variant='secondary'>
-                <WhatsAppIcon /> <span className='ml-2'>WhatsApp</span>
-              </Button></a>
-            </div>
-            <div className='mt-6 flex items-center gap-4 text-sm opacity-80'>
-              <div className='flex items-center gap-2'><Phone className='w-4 h-4'/> {COMPANY.phone}</div>
-              <div className='hidden md:flex items-center gap-2'><Mail className='w-4 h-4'/> {COMPANY.email}</div>
+              <a href={'https://wa.me/92' + COMPANY.phone.replace(/[^0-9]/g,'').slice(-10)} target='_blank'>
+                <Button size='lg' variant='secondary'><svg width='18' height='18' viewBox='0 0 32 32' fill='currentColor' className='mr-2'><path d='M19.11 17.52a4.96 4.96 0 0 1-2.14-.54c-.33-.16-.72-.16-.94.16l-.68.9c-.2.26-.57.35-.87.2-1.64-.82-2.99-2.15-3.82-3.82-.16-.28-.1-.65.16-.85l.9-.68c.3-.22.38-.6.22-.93-.23-.69-.35-1.43-.35-2.17 0-.5-.4-.9-.9-.9H9.2c-.5 0-.9.4-.9.9 0 5.04 4.08 9.12 9.12 9.12.5 0 .9-.4.9-.9v-1.04c0-.5-.4-.9-.9-.9Z'/><path d='M26.34 5.66A11.98 11.98 0 0 0 4.18 19.8L3 25l5.33-1.15A11.98 11.98 0 1 0 26.34 5.66Zm-4.1 18.58c-2.07 1.2-4.4 1.52-6.68.93a10.1 10.1 0 0 1-3.06-1.4l-3.16.69.67-3.08a10.1 10.1 0 0 1-1.43-3.13c-.6-2.28-.28-4.62.93-6.68a8.93 8.93 0 0 1 3.9-3.44c4.86-2.2 10.6-.09 12.81 4.77 2.2 4.86.1 10.6-4.78 12.82Z'/></svg>WhatsApp</Button>
+              </a>
             </div>
           </motion.div>
           <motion.div initial={{opacity:0, scale:0.98}} whileInView={{opacity:1, scale:1}} viewport={{ once: true }} transition={{duration:0.6, delay:0.1}} className='relative'>
@@ -158,7 +147,7 @@ export default function Page() {
             .map((s) => (
             <motion.div key={s.title} variants={fadeUp}>
               <Card><CardContent>
-                <div className='w-12 h-12 rounded-2xl bg-sky-500/20 grid place-items-center text-sky-400 mb-4'>
+                <div className='w-12 h-12 rounded-2xl accent-chip grid place-items-center mb-4'>
                   <s.icon className='w-6 h-6'/>
                 </div>
                 <div className='text-xl font-semibold'>{s.title}</div>
@@ -207,7 +196,7 @@ export default function Page() {
           {['Discovery','Design','Build','Handover'].map((t,i)=> (
             <motion.div key={t} variants={fadeUp}>
               <div className='rounded-3xl border border-white/10 p-6'>
-                <div className='flex items-center gap-2 text-sky-400'>
+                <div className='flex items-center gap-2 text-accent'>
                   <CheckCircle2 className='w-5 h-5'/><div className='text-sm opacity-80'>Step {i+1}</div>
                 </div>
                 <div className='mt-2 font-semibold text-lg'>{t}</div>
@@ -227,7 +216,10 @@ export default function Page() {
       <section id='testimonials' className='section'>
         <h2 className='text-3xl md:text-4xl font-semibold mb-8'>What Clients Say</h2>
         <div className='grid md:grid-cols-2 gap-6'>
-          {TESTIMONIALS.map((t, i) => (
+          {[
+            { quote: 'They delivered exactly on the renders — on time and within budget. The team is disciplined and creative.', author: 'A. Khan', role: 'Homeowner, DHA' },
+            { quote: 'Our office fit-out finished two weeks early. Superb workmanship and project management.', author: 'S. Ahmed', role: 'COO, Tech Startup' }
+          ].map((t, i) => (
             <Card key={i}><CardContent>
               <p className='text-lg leading-relaxed'>“{t.quote}”</p>
               <div className='mt-4 text-sm opacity-80'>{t.author} — {t.role}</div>
@@ -265,7 +257,7 @@ export default function Page() {
             <Input name='phone' placeholder='Phone / WhatsApp' />
             <Input name='location' placeholder='Project Location (e.g., DHA, Clifton)' />
             <Textarea name='brief' placeholder='Project brief (area, style, timeline, budget)' rows={5} />
-            <Button type='submit'>Send Inquiry</Button>
+            <Button type='submit' className='btn-primary'>Send Inquiry</Button>
             <div className='text-xs opacity-60'>This form emails directly to {COMPANY.email}. We never share your contact details.</div>
           </form>
         </div>
