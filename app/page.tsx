@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
@@ -26,10 +26,18 @@ const SERVICES = [
 ];
 
 const PROJECTS = [
-  { id: 'pearl-tower', title: 'Pearl Tower Apartment — Warm Minimal', type: 'Interior', city: 'Karachi', cover: '/proj1.jpg', tags: ['Apartment','Custom Woodwork','Lighting'] },
-  { id: 'dha-villa', title: 'DHA Villa — Contemporary Grey', type: 'Construction', city: 'Karachi', cover: '/proj2.jpg', tags: ['Villa','Landscape','Turnkey'] },
-  { id: 'clifton-office', title: 'Clifton Office — Modern Workspace', type: 'Interior', city: 'Karachi', cover: '/proj3.jpg', tags: ['Office','Acoustics','Furniture'] },
-  { id: 'retail-fitout', title: 'Retail Fit‑Out — Flagship Store', type: 'Construction', city: 'Karachi', cover: '/proj4.jpg', tags: ['Retail','Branding','Lighting'] }
+  { id: 'pearl-tower', title: 'Pearl Tower Apartment — Warm Minimal', type: 'Interior', city: 'Karachi',
+    cover: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=80',
+    tags: ['Apartment','Custom Woodwork','Lighting'] },
+  { id: 'dha-villa', title: 'DHA Villa — Contemporary Grey', type: 'Construction', city: 'Karachi',
+    cover: 'https://images.unsplash.com/photo-1582582621957-cf4591d2b8fc?w=1600&auto=format&fit=crop&q=80',
+    tags: ['Villa','Stone & Marble','Turnkey'] },
+  { id: 'clifton-office', title: 'Clifton Office — Modern Workspace', type: 'Interior', city: 'Karachi',
+    cover: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&auto=format&fit=crop&q=80',
+    tags: ['Office','Acoustics','Furniture'] },
+  { id: 'retail-fitout', title: 'Retail Fit-Out — Flagship Store', type: 'Construction', city: 'Karachi',
+    cover: 'https://images.unsplash.com/photo-1604948501466-4e9b88a7c9a1?w=1600&auto=format&fit=crop&q=80',
+    tags: ['Retail','Branding','Lighting'] }
 ];
 
 const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
@@ -37,7 +45,9 @@ const stagger = { show: { transition: { staggerChildren: 0.08 } } };
 const hoverLift = { whileHover: { y: -4 }, whileTap: { scale: 0.98 } };
 
 const WhatsAppButton = () => (
-  <a className='float-wa bg-sky-500 w-14 h-14 grid place-items-center animate-floaty' href={'https://wa.me/92' + COMPANY.phone.replace(/[^0-9]/g,'').slice(-10)} target='_blank' aria-label='WhatsApp Chat'>
+  <a className='float-wa bg-sky-500 w-14 h-14 grid place-items-center animate-floaty'
+     href={'https://wa.me/92' + COMPANY.phone.replace(/[^0-9]/g,'').slice(-10)}
+     target='_blank' aria-label='WhatsApp Chat'>
     <MessageSquare className='w-6 h-6 text-white'/>
   </a>
 );
@@ -51,7 +61,6 @@ export default function Page() {
     <div className={dark ? 'min-h-screen bg-gray-950 text-white' : 'min-h-screen bg-white text-gray-900'}>
       <WhatsAppButton/>
 
-      {/* Nav */}
       <header className='sticky top-0 z-40 backdrop-blur border-b border-white/10 bg-black/30'>
         <div className='container py-4 flex items-center justify-between'>
           <div className='flex items-center gap-3'>
@@ -73,7 +82,6 @@ export default function Page() {
         </div>
       </header>
 
-      {/* Hero with animated gradient */}
       <section className='relative overflow-hidden hero-gradient'>
         <div className='container py-20 grid md:grid-cols-2 gap-10 items-center'>
           <motion.div variants={fadeUp} initial='hidden' whileInView='show' viewport={{ once: true }}>
@@ -92,15 +100,16 @@ export default function Page() {
             </div>
           </motion.div>
           <motion.div initial={{opacity:0, scale:0.98}} whileInView={{opacity:1, scale:1}} viewport={{ once: true }} transition={{duration:0.6, delay:0.1}} className='relative'>
-            <Image alt='Hero building' width={1200} height={900} className='rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]' src='/hero.jpg' />
+            <Image alt='Hero building' width={1200} height={900}
+                   className='rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]'
+                   src='https://images.unsplash.com/photo-1582582621957-cf4591d2b8fc?w=1600&auto=format&fit=crop&q=80' />
             <div className='absolute -bottom-4 -left-4 bg-white/10 backdrop-blur rounded-2xl px-4 py-3 flex items-center gap-2 text-sm'>
-              <Sparkles className='w-4 h-4'/> ISO‑grade finishes • Transparent BOQs • On‑time delivery
+              <Sparkles className='w-4 h-4'/> ISO-grade finishes • Transparent BOQs • On-time delivery
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Services with stagger */}
       <section id='services' className='section'>
         <div className='flex items-end justify-between mb-8'>
           <h2 className='text-3xl md:text-4xl font-semibold'>Services</h2>
@@ -124,7 +133,6 @@ export default function Page() {
         </motion.div>
       </section>
 
-      {/* Projects with hover lift */}
       <section id='projects' className='section'>
         <div className='flex items-center justify-between mb-6'>
           <h2 className='text-3xl md:text-4xl font-semibold'>Featured Projects</h2>
@@ -138,9 +146,9 @@ export default function Page() {
         </div>
         <div className='grid-sym'>
           {filtered.map((p) => (
-            <motion.a key={p.id} href={`#project-${p.id}`} {...hoverLift} className='group block'>
+            <motion.a key={p.id} href={#project-} {...hoverLift} className='group block'>
               <div className='overflow-hidden rounded-3xl border border-white/10'>
-                <Image src={p.cover} alt={`${p.title} — ${p.type} in ${p.city}`} width={1200} height={900} className='w-full aspect-[4/3] object-cover group-hover:scale-105 transition' />
+                <Image src={p.cover} alt={${p.title} —  in } width={1200} height={900} className='w-full aspect-[4/3] object-cover group-hover:scale-105 transition' />
               </div>
               <div className='mt-3 flex items-center justify-between'>
                 <div>
@@ -155,7 +163,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Process with stagger */}
       <section id='process' className='section'>
         <h2 className='text-3xl md:text-4xl font-semibold mb-8'>How We Work</h2>
         <motion.div className='grid md:grid-cols-4 gap-6' variants={stagger} initial='hidden' whileInView='show' viewport={{ once: true }}>
@@ -179,7 +186,6 @@ export default function Page() {
         </motion.div>
       </section>
 
-      {/* Contact */}
       <section id='contact' className='section'>
         <motion.div className='grid md:grid-cols-2 gap-10 items-start' variants={stagger} initial='hidden' whileInView='show' viewport={{ once: true }}>
           <motion.div variants={fadeUp}>
@@ -214,7 +220,6 @@ export default function Page() {
         </motion.div>
       </section>
 
-      {/* Footer */}
       <footer className='border-t border-white/10'>
         <div className='container py-10 grid md:grid-cols-2 gap-6'>
           <div>
