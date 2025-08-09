@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { metadataBase: new URL('https://bisma-enterprises.vercel.app'),
   title: 'Bisma Enterprises — Construction • Interior • Estate',
   description: 'Interiors and construction across Karachi — DHA, Clifton, Gulshan. From first sketch to final handover.',
   icons: { icon: '/favicon.ico' },
