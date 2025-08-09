@@ -24,7 +24,7 @@ const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transi
 const stagger = { show: { transition: { staggerChildren: 0.08 } } };
 const hoverLift = { whileHover: { y: -4 }, whileTap: { scale: 0.98 } };
 
-// Curated (initial-look) images via Unsplash CDN (reliable)
+// Curated (initial-look) images via Unsplash CDN (reliable + Karachi vibe)
 const HERO_IMG = 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1600&auto=format&fit=crop&q=80';
 const PROJECTS = [
   { id:'pearl-tower', title:'Pearl Tower Apartment — Warm Minimal', type:'Interior', city:'Karachi',
@@ -68,15 +68,15 @@ export default function Page() {
   const [dark, setDark] = useState(true);
   const [accentGold, setAccentGold] = useState(false);
   const [filter, setFilter] = useState('All');
-  const filtered = useMemo(() => PROJECTS.filter(p => filter === 'All' ? true : p.type === filter), [filter]);
+
+  const filtered = useMemo(
+    () => PROJECTS.filter(p => filter === 'All' ? true : p.type === filter),
+    [filter]
+  );
 
   // Sync html class for light/dark & accent
-  useEffect(() => {
-    document.documentElement.classList.toggle('light', !dark);
-  }, [dark]);
-  useEffect(() => {
-    document.documentElement.classList.toggle('gold', accentGold);
-  }, [accentGold]);
+  useEffect(() => { document.documentElement.classList.toggle('light', !dark); }, [dark]);
+  useEffect(() => { document.documentElement.classList.toggle('gold', accentGold); }, [accentGold]);
 
   return (
     <div className={dark ? 'min-h-screen bg-gray-950 text-white' : 'min-h-screen bg-white text-gray-900'}>
@@ -98,11 +98,9 @@ export default function Page() {
             ))}
           </nav>
           <div className='flex items-center gap-2'>
-            {/* Accent toggle */}
             <Button variant='secondary' onClick={()=>setAccentGold(a=>!a)}>
               {accentGold ? 'Accent: Gold' : 'Accent: Default'}
             </Button>
-            {/* Dark toggle */}
             <Button onClick={() => setDark(d => !d)} variant='secondary'>{dark ? <Sun className='w-4 h-4'/> : <Moon className='w-4 h-4'/>}</Button>
             <a href='#contact'><Button className='btn-primary'>Get Quote</Button></a>
           </div>
@@ -121,8 +119,12 @@ export default function Page() {
               <a href='#projects'><Button className='btn-primary' size='lg'>View Projects <ArrowUpRight className='w-4 h-4 ml-2'/></Button></a>
               <a href='#contact'><Button size='lg' variant='secondary'>Free Consultation</Button></a>
               <a href={'https://wa.me/92' + COMPANY.phone.replace(/[^0-9]/g,'').slice(-10)} target='_blank'>
-                <Button size='lg' variant='secondary'><svg width='18' height='18' viewBox='0 0 32 32' fill='currentColor' className='mr-2'><path d='M19.11 17.52a4.96 4.96 0 0 1-2.14-.54c-.33-.16-.72-.16-.94.16l-.68.9c-.2.26-.57.35-.87.2-1.64-.82-2.99-2.15-3.82-3.82-.16-.28-.1-.65.16-.85l.9-.68c.3-.22.38-.6.22-.93-.23-.69-.35-1.43-.35-2.17 0-.5-.4-.9-.9-.9H9.2c-.5 0-.9.4-.9.9 0 5.04 4.08 9.12 9.12 9.12.5 0 .9-.4.9-.9v-1.04c0-.5-.4-.9-.9-.9Z'/><path d='M26.34 5.66A11.98 11.98 0 0 0 4.18 19.8L3 25l5.33-1.15A11.98 11.98 0 1 0 26.34 5.66Zm-4.1 18.58c-2.07 1.2-4.4 1.52-6.68.93a10.1 10.1 0 0 1-3.06-1.4l-3.16.69.67-3.08a10.1 10.1 0 0 1-1.43-3.13c-.6-2.28-.28-4.62.93-6.68a8.93 8.93 0 0 1 3.9-3.44c4.86-2.2 10.6-.09 12.81 4.77 2.2 4.86.1 10.6-4.78 12.82Z'/></svg>WhatsApp</Button>
+                <Button size='lg' variant='secondary'><WhatsAppIcon /><span className='ml-2'>WhatsApp</span></Button>
               </a>
+            </div>
+            <div className='mt-6 flex items-center gap-4 text-sm opacity-80'>
+              <div className='flex items-center gap-2'><Phone className='w-4 h-4'/> {COMPANY.phone}</div>
+              <div className='hidden md:flex items-center gap-2'><Mail className='w-4 h-4'/> {COMPANY.email}</div>
             </div>
           </motion.div>
           <motion.div initial={{opacity:0, scale:0.98}} whileInView={{opacity:1, scale:1}} viewport={{ once: true }} transition={{duration:0.6, delay:0.1}} className='relative'>
@@ -174,7 +176,7 @@ export default function Page() {
           {filtered.map((p) => (
             <motion.a key={p.id} href={'#project-' + p.id} {...hoverLift} className='group block'>
               <div className='overflow-hidden rounded-3xl border border-white/10'>
-                <Image src={p.cover} alt={${p.title} —  in } width={1200} height={900} className='w-full aspect-[4/3] object-cover group-hover:scale-105 transition' />
+                <Image src={p.cover} alt={\\ — \ in \\} width={1200} height={900} className='w-full aspect-[4/3] object-cover group-hover:scale-105 transition' />
               </div>
               <div className='mt-3 flex items-center justify-between'>
                 <div>
@@ -216,10 +218,7 @@ export default function Page() {
       <section id='testimonials' className='section'>
         <h2 className='text-3xl md:text-4xl font-semibold mb-8'>What Clients Say</h2>
         <div className='grid md:grid-cols-2 gap-6'>
-          {[
-            { quote: 'They delivered exactly on the renders — on time and within budget. The team is disciplined and creative.', author: 'A. Khan', role: 'Homeowner, DHA' },
-            { quote: 'Our office fit-out finished two weeks early. Superb workmanship and project management.', author: 'S. Ahmed', role: 'COO, Tech Startup' }
-          ].map((t, i) => (
+          {TESTIMONIALS.map((t, i) => (
             <Card key={i}><CardContent>
               <p className='text-lg leading-relaxed'>“{t.quote}”</p>
               <div className='mt-4 text-sm opacity-80'>{t.author} — {t.role}</div>
