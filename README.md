@@ -1,11 +1,11 @@
-# Bisma Enterprises — Next.js Site (v3.1 n8n-style motions)
+# Bisma Enterprises — Next.js Site (v3.1)
 
 What's new:
-- Animated hero gradient (n8n feel)
+- Animated hero gradient
 - Staggered reveal animations (Framer Motion)
 - Button/card micro-interactions
 - Floating WhatsApp button with gentle bounce
-- Local images + Karachi tagline + form to email (formsubmit.co)
+- Local images 
 - Symmetric grid layout
 
 Run:
